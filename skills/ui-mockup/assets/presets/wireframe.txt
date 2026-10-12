@@ -1,0 +1,8 @@
+STYLE: low-fidelity greyscale wireframe, flat vector, the look of a whiteboard-clean UX sketch.
+White background, all shapes outlined in 2px medium grey #9AA0A6, fills only in #F1F3F4 light
+grey. NO brand colour anywhere except a single accent — a solid grey-blue #5B6B8C fill — used
+only for the one primary action on the screen. Text is real but monochrome: headings as short
+dark-grey strings, body copy represented as horizontal grey placeholder bars of varying width
+(never lorem ipsum letters). Images and avatars are grey rectangles / circles with a diagonal
+cross or a simple mountain glyph. Icons are simple grey line glyphs. Structure over decoration:
+show the grid, the hierarchy and the spacing, no shadows, no gradients, no photos.

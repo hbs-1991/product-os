@@ -1,0 +1,8 @@
+STYLE: high-fidelity iOS native app screen, rendered flat as a design mockup (not a photo of a
+phone). iOS 17 visual language: SF Pro typography, 17px body, 34px bold large title, system
+background #FFFFFF with grouped sections on #F2F2F7, rounded 10px grouped list rows with hairline
+#C6C6C8 separators, chevrons on the trailing edge. Accent is system blue #007AFF for interactive
+text and toggles; destructive red #FF3B30. Top: a status bar with time, signal, wifi and battery,
+then a navigation bar with a title and a back chevron. Bottom: a tab bar with 4-5 SF-Symbols-style
+thin-line icons and 10px labels, active tab in blue, plus the home indicator bar. Safe-area
+padding 16px horizontal. Portrait 9:19.5 phone screen, no device bezel unless asked.

@@ -1,0 +1,14 @@
+{
+  "name": "product-os",
+  "description": "Idea-to-PR operating system for Claude Code: discovery, roadmap, feature pipeline and project memory.",
+  "owner": {
+    "name": "SUMBAR"
+  },
+  "plugins": [
+    {
+      "name": "product-os",
+      "source": "./",
+      "description": "Discovery chain, roadmap, feature pipeline with cross-checking agents, and a configurable project wiki."
+    }
+  ]
+}

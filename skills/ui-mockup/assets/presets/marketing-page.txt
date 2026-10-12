@@ -1,0 +1,8 @@
+STYLE: high-fidelity screenshot of a modern marketing / landing page, light theme, flat vector
+rendering. Wide centred content column with 1200px max width on a #FFFFFF background, alternating
+sections tinted #F8FAFC. Large hero headline 48-56px bold near-black, supporting paragraph 18px
+#4B5563, one solid primary button in indigo #4F46E5 and one ghost button beside it. Feature rows
+use a 3-column card grid with a thin-line icon in a rounded tinted square above each title. Soft
+abstract vector shapes or a flat product-UI preview panel sit on the right of the hero. Logo strip
+of neutral grey placeholder wordmarks (invented, not real brands). Clean sans-serif (Inter),
+generous 80-120px vertical section rhythm, restrained colour, no stock photography of people.

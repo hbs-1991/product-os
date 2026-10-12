@@ -1,0 +1,13 @@
+RENDERING CONSTRAINTS (apply to the whole image):
+- Render as a crisp, flat, straight-on UI screenshot. No perspective, no 3D, no photorealism, no
+  device held in a hand, no laptop-on-a-desk scene, no room background, no reflections.
+- All edges strictly horizontal or vertical, elements pixel-aligned to a common grid, equal gaps
+  between repeated elements, consistent padding on every side of every container.
+- Every text string is sharp, correctly spelled and rendered in a real readable font. Use ONLY the
+  strings quoted in the specification above; where filler text is needed, draw neutral grey
+  placeholder bars instead of fake words. No lorem ipsum, no garbled letters, no duplicated labels.
+- One single icon set with one stroke width across the whole image. No emoji unless requested.
+- No real company logos or trademarks, no watermark, no signature, no UI-kit branding, no cursor.
+- Numbers, bars and chart segments must agree with their labels and with each other.
+- Do not invent extra panels, sections, columns or menu items beyond those specified; an area with
+  nothing specified stays empty whitespace.

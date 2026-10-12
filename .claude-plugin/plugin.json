@@ -1,0 +1,10 @@
+{
+  "name": "product-os",
+  "version": "1.0.0",
+  "description": "From an idea to merged code with owner gates at every step: a discovery chain (product brief, PRD with weighted user journeys, UX design system, architecture), a roadmap of milestones and epics, a feature pipeline where fresh agents check each other, and a configurable project wiki that gives the agent durable memory.",
+  "author": {
+    "name": "SUMBAR"
+  },
+  "license": "MIT",
+  "keywords": ["workflow", "roadmap", "milestones", "prd", "product-brief", "architecture", "ux", "pipeline", "code-review", "agents", "wiki", "memory"]
+}

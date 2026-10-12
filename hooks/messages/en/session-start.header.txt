@@ -1,0 +1,4 @@
+# Project Wiki DIGEST ({wiki_dir}/) -- injected by the SessionStart hook
+This is a digest, capped at ~6.5 KB so it stays inline: Claude Code drops hook output above ~10 KB to a file that no session reads.
+It is NOT the wiki. Before working on a module: read {wiki_dir}/index.md (page map) and the module's page. Full project state: {wiki_dir}/overview.md. Journal: {wiki_dir}/log.md. Rules for updating: {wiki_dir}/conventions.md.
+A wiki claim that names a file, route or symbol must be re-verified against the code before you rely on it.

@@ -1,0 +1,8 @@
+STYLE: high-fidelity screenshot of a premium dark app with glassmorphism, flat vector rendering
+(no photorealism). Deep background #0A0A0F with a soft blurred violet-to-blue radial glow behind
+the content. Surfaces are translucent frosted panels: subtle white 6% fill, 1px white 12% border,
+16px corner radius, soft inner highlight along the top edge. Accents: violet #7C5CFF and cyan
+#22D3EE for active states and focus rings. Text: #F5F5F7 primary, #9CA3AF secondary, modern
+sans-serif, medium weight. Icons: thin-line 1.5px stroke, light grey. Depth comes from
+translucency and glow, never from drop shadows or 3D bevels. Elegant, calm, high contrast on
+text, generous 20-24px padding.

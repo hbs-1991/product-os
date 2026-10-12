@@ -1,0 +1,8 @@
+STYLE: high-fidelity screenshot of a shadcn/ui + Tailwind web application, light neutral theme,
+flat vector rendering. Background #FFFFFF, muted surfaces #F4F4F5 (zinc-100), borders 1px
+#E4E4E7 (zinc-200), corner radius 8px, shadows almost absent — the design separates by border
+and spacing, not elevation. Primary button solid near-black #18181B with white label; secondary
+button white with a zinc border; destructive #DC2626. Text: #09090B primary, #71717A muted,
+Inter / Geist sans, tight tracking, 14px body, semibold 16-18px card titles. Badges are small
+pill chips with a 1px border and muted background. Icons: Lucide-style thin-line, 1.5px stroke,
+16-20px. Restrained, quiet, high-legibility, lots of whitespace, no gradients, no glow.

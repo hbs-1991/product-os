@@ -1,0 +1,8 @@
+STYLE: high-fidelity screenshot of a dark analytics dashboard, flat vector rendering. Page
+background #0B0F17. Panels are #131822 with a 1px #212938 border, 12px corner radius, no heavy
+shadows. Primary accent electric blue #3B82F6, secondary violet #8B5CF6, positive #22C55E,
+negative #EF4444, chart gradients are subtle and flat. Text: #E5E7EB for values and headings,
+#8A94A6 for labels and axis ticks, clean sans-serif (Inter), large tabular numerals for metrics.
+Icons: thin-line set, 1.5px stroke, muted grey-blue. Charts use flat fills with 25% opacity area
+under a 2px line, gridlines are faint #1E2632. Spacing 20-24px inside panels, aligned to an 8px
+grid, high contrast between the metric value and its label.

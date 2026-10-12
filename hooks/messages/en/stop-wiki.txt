@@ -1,0 +1,1 @@
+📝 {wiki_dir}/ is not updated although code changed. If new knowledge appeared (a module, a decision made while building, a gotcha, a changed focus), run the wiki-ingest skill: module/concept page, decisions/, overview.md, log.md. Purely internal edits need no wiki change.

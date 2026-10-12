@@ -1,0 +1,8 @@
+STYLE: high-fidelity screenshot of a modern SaaS web application, light theme, flat vector
+rendering. Page background #F7F8FA. Surfaces are pure white cards with a 1px #E5E7EB border,
+12px corner radius and a very soft shadow. Primary accent indigo #4F46E5 (filled buttons,
+active nav item, primary chart series); secondary accent teal #0EA5E9; success #16A34A;
+warning #F59E0B; danger #DC2626. Text: near-black #111827 for headings, #6B7280 for secondary
+labels, clean geometric sans-serif (Inter), headings semibold, labels 13-14px, generous
+letter spacing. Icons: single consistent thin-line set, 1.5px stroke, neutral grey. Spacing is
+airy: 24px card padding, 16px gaps, everything aligned to an 8px grid.

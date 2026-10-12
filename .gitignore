@@ -1,0 +1,4 @@
+.feature-pipeline/
+__pycache__/
+*.pyc
+.plans/

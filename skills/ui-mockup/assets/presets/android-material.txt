@@ -1,0 +1,9 @@
+STYLE: high-fidelity Android app screen in Material 3, rendered flat as a design mockup (not a
+photo of a phone). Roboto typography, 16px body, 22px medium headline. Surfaces use tonal
+elevation: background #FEF7FF, cards #F7F2FA with 16-20px corner radius and no border. Primary
+accent #6750A4 (purple), secondary container #E8DEF8, error #B3261E. Top app bar with a title
+and leading/trailing icon buttons; a filled or tonal button with 20px full-round corners; chips
+as fully rounded outlined pills; a bottom navigation bar with 3-5 filled-icon destinations, the
+active one carrying a pill-shaped indicator behind the icon. A round or extended FAB at the
+bottom-right where the screen has a primary action. Status bar at the top, gesture bar at the
+bottom. Portrait 9:19.5 screen.

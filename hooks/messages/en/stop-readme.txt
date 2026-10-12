@@ -1,0 +1,1 @@
+A README next to the code may be stale: code in an area changed but its README was not touched in this change. If a contract changed (structure, classes, endpoints, tasks, events, cross-module wiring) update the README; if the edit is purely internal (a method body, a bugfix with no contract change) leave it. Candidates:
