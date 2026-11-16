@@ -1,6 +1,6 @@
 ---
 name: write-story
-description: "Stage 2 of feature-pipeline: turns an approved brainstorming design into ONE story document that carries its spec context — Agent:, numbered Acceptance Criteria, column-zero Tasks, Locked Decisions and Work Streams that say what can run in parallel — asks the owner whether it runs locally in sequence or in parallel across file-disjoint streams, and has the implementation-advisor agent check it against the repo's architecture, rules and security before the owner approves. Use after brainstorming approved a design, or when the owner asks to 'write the story', 'turn this into a story', 'оформи историю'."
+description: "Stage 2 of feature-pipeline: turns an approved brainstorming design into ONE story document that carries its spec context — Agent:, numbered Acceptance Criteria, column-zero Tasks, Locked Decisions and Work Streams that say what can run in parallel — and has the implementation-advisor agent check it against the repo's architecture, rules and security before the owner approves. Use after brainstorming approved a design, or when the owner asks to 'write the story', 'turn this into a story', 'оформи историю'."
 ---
 
 # Write Story — one document, story plus spec
@@ -67,27 +67,11 @@ Then state the verdict plainly: **parallel OK** (≥2 disjoint streams) or **seq
 Be honest — a nine-task story is usually two or three streams, often one.
 Parallel execution that turns out to share a file clobbers work; a wrong "sequential" only costs time.
 
-## 4. Ask the owner how it will run
+## 4. Execution is always local
 
-Execution is always local, in a git worktree.
-The choice is how, and it shapes the story (where an owner checkpoint may sit), so ask it before drafting, as its own `AskUserQuestion`:
-
-| Route | Available when | Effect on the story |
-|---|---|---|
-| **Local — sequential** | always | one implementer works the tasks in order; owner checkpoints allowed anywhere |
-| **Local — parallel** | §3 found ≥2 file-disjoint streams | one implementer per stream concurrently (`parallel-story-execution`), then the barrier stream; checkpoints only before the fan-out or in the barrier |
-
-Put your recommendation first, marked "(Recommended)", with the reason in its description.
-A recommendation is not a choice: the owner picks.
-If §3 found a single stream, skip the question and say so in one line.
-If the owner already named the route in their own words earlier, do not ask again — state which one you use.
-A "yes" to a route you proposed is not the owner naming it, unless the question offered the options.
-
-Record the answer as the first line of the saved story, only after the owner answered:
-
-```text
-<!-- route: local-sequential | local-parallel — chosen by the owner, YYYY-MM-DD -->
-```
+The story always runs locally, in a git worktree.
+There is no route to choose and nothing to ask the owner here: the `## Work Streams` verdict from §3 decides whether `execute-story` runs the streams in sequence or in parallel.
+That verdict also shapes the story: in a parallel story, owner checkpoints may sit only before the fan-out or in the barrier stream (§6).
 
 ## 5. Draft the body
 
@@ -207,12 +191,12 @@ Before anyone else sees it:
 - Every claim about the codebase comes from a file actually read; identifiers, paths and error texts are verbatim.
 - Standalone wording — no "as discussed above", no revision language, no "TBD".
 - Verification lists commands that really exist in this repo.
-- Nothing contradicts the chosen route (no mid-stream checkpoint in a parallel story).
+- Nothing contradicts the Work Streams verdict (no mid-stream checkpoint in a parallel story).
 
 ## 8. Implementation advisor — before the owner sees it
 
 Launch the **`implementation-advisor`** agent on the draft story (the repo's own one if `.claude/agents/implementation-advisor.md` exists, else `product-os:implementation-advisor`).
-Its prompt is the repository path, the story text and the chosen route — not this conversation; it must judge the story, not the reasoning that produced it.
+Its prompt is the repository path and the story text — not this conversation; it must judge the story, not the reasoning that produced it.
 It checks the story against the repo's architecture, rules and security and returns APPROVE / APPROVE-WITH-CHANGES / REJECT.
 
 - **Any 🔴 blocker → the story goes back:** fix it (return to `brainstorming` if the blocker is a design flaw, not a wording one), then run the advisor **again** on the revised story.
@@ -235,17 +219,15 @@ The story is never committed to the code repo — a tracked copy drifts from the
 After the owner approves it, commit it to the nested `.plans` repo only (`git -C <repo>\.plans add -A`, then commit); never push unless asked.
 The durable record is the PR body and the ADR/wiki.
 
-Show the owner the rendered story, the Work Streams verdict, which agent will implement it, the advisor's verdict (and what changed because of it), and the route.
-Then ask for approval with `AskUserQuestion`, options naming the route:
+Show the owner the rendered story, the Work Streams verdict, which agent will implement it, and the advisor's verdict (and what changed because of it).
+Then ask for approval with `AskUserQuestion`:
 
-- **Approve — run it <route>**
-- **Approve, but change the route** — back to §4, re-check §6 and §7, re-run the advisor if tasks changed
+- **Approve**
 - **Needs changes** — say what, revise, re-run the advisor if tasks changed, and ask again
 
 **Do not start implementation until the owner approves.**
-A plain "yes" to a question that did not name the route approves the story only, not the route.
 
-Then invoke `execute-story` with the story path and the route.
+Then invoke `execute-story` with the story path.
 
 ## Common mistakes
 
@@ -257,8 +239,6 @@ Then invoke `execute-story` with the story path and the route.
 | Criteria as checkboxes | Numbered list |
 | A separate spec file next to the story | The story is the spec |
 | An owner checkpoint inside a concurrent stream | Move it before the fan-out or into the barrier stream |
-| Deciding the route yourself and stating it as fact | Ask in §4; a "yes" to the story is not a route choice |
-| Writing the `<!-- route: -->` line before the owner answered | It records the owner's answer, nothing else |
 | Committing the story to the code repo | Stories live in `<repo>\.plans\stories\`; the record is the PR, ADR and wiki |
 | Showing the owner a story the advisor has not seen, or one with an open 🔴 | §8 runs first; a blocker sends the story back |
 | A UI story without `## User Flow` | Write the flow; `e2e-recorder` walks exactly those steps |

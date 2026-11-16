@@ -1,7 +1,7 @@
 ---
 name: ui-mocker
 description: "Turns ONE written design direction for a screen into a verified image mock before any code exists, using the ui-mockup skill's mock.sh (GPT Image 2 through the OpenAI API, OPENAI_API_KEY). It writes the layout specification, generates, reads the PNG back, checks text, data, structure and craft, regenerates at most twice, and returns the file path with an honest verification note. Launched by ui-direction — three in parallel, one per direction, same canvas and style.\n\n<example>\nContext: ui-direction has three directions for a new dashboard page.\nuser: \"Show me the three directions\"\nassistant: \"Launching three ui-mocker agents in parallel — one per direction, same canvas and style block — so you compare ideas, not renders.\"\n</example>"
-model: sonnet
+model: claude-opus-5-5
 color: pink
 tools: Read, Bash, Glob
 ---
