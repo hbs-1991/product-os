@@ -44,7 +44,8 @@ The story lives in the main checkout's `.plans` (outside the worktree) — refer
 ## 3. Run the streams — fresh implementers
 
 Read the story's `## Work Streams` verdict, then re-check it against the task file lists yourself — a stale verdict clobbers work.
-If the story carries a `<!-- route: local-sequential | local-parallel ... -->` line, that is the owner's choice: sequential runs the streams one after another, parallel fans file-disjoint streams out via `parallel-story-execution`. No such line: ask the owner which; never pick silently.
+The verdict decides how it runs; the owner is not asked: sequential runs the streams one after another, parallel fans file-disjoint streams out via `parallel-story-execution`.
+An older story may still carry a `<!-- route: ... -->` first line; ignore it.
 
 The implementer is the agent named in `Agent:` — a repo agent, or `product-os:story-implementer`.
 It gets the story path, the worktree path, the task numbers and the exact file scope — **not this conversation**.

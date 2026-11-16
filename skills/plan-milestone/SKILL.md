@@ -148,7 +148,7 @@ Duration is made of what is still slow with agents:
 
 | Component | What drives it |
 |---|---|
-| Owner decisions | brainstorming Q&A, design / story / route approvals, UI direction pick; this is waiting for the owner, so it is often the largest part |
+| Owner decisions | brainstorming Q&A, design / story approvals, UI direction pick; this is waiting for the owner, so it is often the largest part |
 | Agent execution | story run (minutes to a few hours); independent Work Streams run **in parallel**, same-lane stories queue |
 | Review loop | `refute-story` + up to 2 fix rounds, e2e-recorder for UI epics |
 | Gates and CI | test / build / deploy time of the repo, PR merge wait |
