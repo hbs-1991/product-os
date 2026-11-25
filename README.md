@@ -98,6 +98,7 @@ The **wiki** (`docs/wiki`, committed with the code) is the other half: durable k
 | POSIX `sh` + `awk` (Git Bash on Windows) | the wiki hooks | bundled with Git for Windows |
 | `gh` CLI, logged in | the PR, and the optional GitHub mirror of milestones | `gh auth login` |
 | `OPENAI_API_KEY` with `gpt-image-2` access, **or** the Codex CLI logged in | UI mocks | optional, only for screens |
+| Screenrove MCP (real screenshots of 200+ web products) | reference screens in `ui-direction` research | optional: `claude mcp add --transport http --scope user screenrove https://screenrove.com/mcp`, free, no key |
 | `playwright-cli` | the E2E screen recording | `npm install -g @playwright/cli@latest`, optional, only for UI |
 | Node.js | the brainstorming visual board | optional |
 

@@ -3,7 +3,8 @@ name: ui-direction
 displayName: "🧭 UI Direction — research, taste filter, 3 directions, 3 mocks"
 description: >
   Decide what a new or substantially changed screen should look like before it is specified or
-  built: a brief, internet research on how the best current products solve this kind of screen,
+  built: a brief, internet research on how the best current products solve this kind of screen
+  (plus real screenshots from a screen-reference MCP such as Screenrove when one is connected),
   a taste filter through the project's design system (.plans\product\ux\DESIGN.md and the repo's own DESIGN.md / PRODUCT.md), three distinct design directions,
   one generated mock per direction (ui-mocker agents via ui-mockup -> gpt-image-2), and the owner's choice recorded
   as a design artefact in .plans\design\. Invoked by feature-pipeline stage 1 whenever a feature touches a screen,
@@ -19,7 +20,8 @@ The output is one chosen direction, with its mock, that the story locks and the 
 
 ```text
  1. Brief         screen, user, job, data, states, constraints from DESIGN.md
- 2. Research      how leading products solve THIS kind of screen today (subagent, web)
+ 2. Research      how leading products solve THIS kind of screen today (subagent, web
+                  + real screenshots from a screen-reference MCP when connected)
  3. Taste filter  every idea against DESIGN.md / PRODUCT.md: keep, adapt, or reject
  4. Directions    exactly 3, genuinely different, each built from the repo's kit
  5. Mocks         one per direction, ui-mockup, in parallel, verified
@@ -35,6 +37,11 @@ A "no" is fine: note "UI direction skipped by owner" in the design and move on.
 
 Prerequisite: `ui-mockup` + `gpt-image-2` (both in this plugin), with either backend available: `OPENAI_API_KEY` in the environment, or a logged-in `codex` CLI on a ChatGPT plan (see gpt-image-2's backend rule).
 If generation is unavailable, say so in one sentence and offer to continue with text-only directions — never substitute another image source silently.
+
+Optional: a **screen-reference MCP**, a library of real product screenshots searchable by screen type and state.
+The documented one is Screenrove (free, no account, web SaaS only); the owner connects it once with `claude mcp add --transport http --scope user screenrove https://screenrove.com/mcp`.
+It is connected when the session's tool list has its `search_screens` (as `mcp__screenrove__search_screens`, or listed as a deferred tool).
+The plugin never connects it by itself; without it §2 runs on web research alone.
 
 ## 1. Brief
 
@@ -54,7 +61,18 @@ Its prompt contains the brief and asks for:
 - 5–8 **concrete references**: named products (e.g. Linear, Stripe, Vercel, Attio, Notion, Shopify admin — whatever fits the screen type) and recent articles / pattern libraries on this screen type, current year preferred;
 - per reference: URL, the **pattern** used (layout, density, how the primary action is surfaced, how empty/error states are handled), and why it works for the job;
 - 3–5 **current direction trends** for this screen type, each with the evidence behind it;
-- no images copied, no claims without a source URL.
+- no images saved or re-hosted, no claims without a source URL.
+
+**Reference screens (when a screen-reference MCP is connected).** Add to the subagent's prompt:
+
+- call `list_tags` once for the vocabulary, then `search_screens` with the brief's screen type as `q` plus the matching `pattern`, `state` (empty, error, first-run …) and `kind: "product"` (or `"marketing"` for a public page); `find_related_screens` after one good hit finds other products solving the same problem;
+- look at the attached images (`get_screen_image` for the ones that came without one) before choosing;
+- return **3–5 screen ids**, each with its product, its URL and one line on what to take from it (layout, density, where the primary action sits, how the state is handled);
+- say so when coverage is thin — the library may not hold this category or platform (Screenrove is web SaaS only, no mobile apps) — rather than padding the list with weak matches.
+
+When the digest lands, **open the chosen screens yourself** with `get_screen_image` (the `preview` size) before writing §3 and §4: the agent that designs the directions must see the references, not only read a description of them.
+The images stay in the conversation: never save them to disk, never copy them into `.plans`, never pass one to image generation.
+The record keeps screen ids and URLs.
 
 Read its result critically: drop anything with no source, anything that is a generic "2026 trends" listicle with no relation to the screen type.
 
@@ -79,7 +97,7 @@ For each:
 - **Layout** — regions with proportions, as `ui-mockup`'s spec template wants them.
 - **Kit mapping** — which existing primitives it uses; what would need a new variant.
 - **Trade-offs** — pros, cons, build cost, risk on mobile / in other locales.
-- **Borrowed from** — the references from §2 it draws on.
+- **Borrowed from** — the references from §2 it draws on (product + screen id for a reference screen).
 
 Mark your recommendation and say why, in one line.
 
@@ -90,6 +108,7 @@ For this skill:
 
 - **Same canvas, preset and chrome for all three** — only the direction differs, so the owner compares ideas, not renders.
   Prefer a project style block (`--style-file`, derived from the repo's tokens as `ui-mockup/references/style-presets.md` describes) or `--ref` a screenshot of the real app, over a generic preset.
+  A `--ref` is always this project's own screen or mock, never a third-party reference screen from §2: those shape the written direction, not the pixels.
 - **Launch three `ui-mocker` agents in one message** (`subagent_type: "product-os:ui-mocker"`, `run_in_background: true`), one per direction.
   Each gets `MOCK_SH` (the absolute path of `scripts/mock.sh` in the `ui-mockup` skill's base directory), `REFERENCES` (its `references/` folder), the brief, its one direction, the shared style flags, the aspect and its output path.
   While they run, present §3 and §4 to the owner.
@@ -105,7 +124,7 @@ Then at most **two `--ref` refinements** of the chosen mock (blends and targeted
 Write `README.md` into the same folder, English, one sentence per line (the record artefact):
 
 - the brief;
-- the research references (URLs) and the taste-filter table;
+- the research references (URLs, and screen ids for reference screens) and the taste-filter table;
 - the three directions, the choice, and the owner's reason;
 - the chosen direction's tokens (colours, type, radii, spacing) when the project has a design system;
 - the final mock files and which one is canonical;
@@ -127,4 +146,5 @@ The record is dated and never updated afterwards; if the design later changes, a
 - Never fewer or more than three directions in §4.
 - Never present a mock without reading it back.
 - Never let a researched trend override the repo's DESIGN.md.
+- Never save a third-party reference screenshot or use one as a `--ref`; record its id and URL instead.
 - Chat in the owner's language; every written artefact in English.
