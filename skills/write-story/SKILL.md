@@ -132,6 +132,7 @@ Verdict: parallel OK | sequential
 - `<docs/adr/nnnn-slug.md>` — <why it matters here>
 - `<src/module/README.md>` — <what it establishes>
 - `<records/date-topic-ui-direction/>` — the chosen direction and its canonical mock (UI work only)
+- `<.plans/research/date-topic.md>` — the research digest a decision rests on (when brainstorming ran external research)
 
 ## Verification
 

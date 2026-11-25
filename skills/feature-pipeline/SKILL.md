@@ -16,7 +16,9 @@ Three stages, each ending with the owner's explicit approval before the next beg
  1. brainstorming    Unknowns Matrix: known knowns → known unknowns → unknown knowns
   │                  → [screen touched? ask → ui-direction: research → 3 directions
   │                     → 3 mocks (ui-mocker agents) → owner picks]
-  │                  → draft → blind-spot pass (blind-spot-reviewer, zero context) → approved design
+  │                  → [external API / library / version-dependent? → 1–2 research
+  │                     subagents (research-protocol) → digest in .plans\research\]
+  │                  → 2–3 approaches → draft → blind-spot pass (blind-spot-reviewer, zero context) → approved design
   ▼   owner approves the design
  2. write-story      decompose → Work Streams
   │                  → one document = story + spec context
@@ -77,6 +79,9 @@ An epic brief from `plan-milestone` (with `Covers / Design / Architecture` ids) 
 **UI direction (frontend).** If the work adds a screen or noticeably changes one, always ask the owner whether to run the design step — never assume either answer.
 On "yes", invoke `ui-direction` inside brainstorming, before its §5 draft: research → taste filter → three directions → three mocks → the owner's pick.
 The chosen direction is part of the approved design; its record folder and **Locked visual decisions** travel into the story and are checked again in stage 3.
+
+**External research (any feature).** When an approach would rest on something outside the repo — a third-party API, a library feature, version-dependent behaviour, a provider's limits — brainstorming researches it before proposing approaches (its §5), following `research-protocol`.
+The digests are saved in `<repo>\.plans\research\` and the story cites them under References.
 
 ## 2. Stage 2 — write-story
 

@@ -74,7 +74,7 @@ Planning documents live **next to the code but never in the code repo's git**:
 ```text
 <repo>\.plans\                      its own nested git repo, excluded via .git/info/exclude
   product\brief.md, prd.md, ux\, architecture.md, research\, pipeline.md, .memlog.md
-  roadmap.md   milestones\M1-<slug>.md   stories\YYYY-MM-DD-<slug>.md   design\<slug>\
+  roadmap.md   milestones\M1-<slug>.md   stories\YYYY-MM-DD-<slug>.md   design\<slug>\   research\
 ```
 
 `<repo>` is the main checkout (never a worktree). In a cross-repo project the **backend** repo is main: the roadmap, milestones and architecture live there, the other repos get link stubs, and each repo keeps its own stories. Nothing in `.plans` is pushed unless you ask.

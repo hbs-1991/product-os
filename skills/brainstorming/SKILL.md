@@ -33,7 +33,7 @@ Create a task for each item and complete them in order:
 2. **Known knowns** — read the repo, present the summary, get corrections
 3. **Known unknowns** — collect them, frame each as options + deciding assumption
 4. **Unknown knowns** — the tacit-context interview
-5. **Draft design** — 2–3 approaches with a recommendation, then the draft of the chosen one
+5. **Draft design** — external research when the idea depends on facts outside the repo, then 2–3 approaches with a recommendation, then the draft of the chosen one
 6. **Unknown unknowns** — blind-spot pass by a fresh subagent, triage every finding with the owner
 7. **Present the final design** — section by section, get approval
 8. **Hand off** — to `write-story` (or back to the caller)
@@ -113,6 +113,14 @@ Chat with the owner in their language; anything written to a file is English.
 **A screen is involved?** Before drafting, ask the owner whether to run `ui-direction` (always ask when a screen is added or noticeably changed).
 If yes, run it now; its chosen direction and Locked visual decisions are inputs to this draft, not one of its 2–3 approaches.
 
+**Facts outside the repo involved?** Before proposing approaches, check whether any of them would rest on something the repo cannot tell you: a third-party API or SDK, a library or framework feature, behaviour that changed between versions, a provider's pricing or limits, how comparable products solve the same job.
+If yes, research it now instead of answering from memory — what a model knows about versions and APIs is months old.
+Follow `research-protocol`: one question per subagent, at most two, type `technical` (which API / library / version fits and its pitfalls) or `choice` (named candidates compared on named criteria), launched in parallel with its subagent brief.
+Save each digest to `<repo>\.plans\research\YYYY-MM-DD-<topic>.md` when it lands.
+The approaches below cite the digest by filename, and a claim a digest marks as unverified stays labelled that way in the design.
+Skip it when everything the approaches depend on is in the repo; for a borderline case, ask the owner in one line.
+This research is about how to build the feature; how its screen should look is `ui-direction`'s own research.
+
 **Propose 2–3 approaches** with trade-offs, lead with your recommendation and say why.
 Once one is chosen, draft the design, applying the disciplines in `references/design-principles.md` (read it once per session):
 
@@ -170,6 +178,7 @@ Planning artifacts (boards, notes, any file this skill writes) go under `<repo>\
 ## Key principles
 
 - **Read before you ask.** Questions the code answers waste the owner's attention.
+- **Research before you assume.** A fact about something outside the repo comes from a source fetched this run, not from memory.
 - **"I don't know" is information.** A named unknown with options beats a confident guess.
 - **Ask for the context that isn't in the code** — it is usually the part that changes the result.
 - **The blind-spot reviewer must be blind** to the conversation.
