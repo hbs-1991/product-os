@@ -67,8 +67,10 @@ Placeholders: `{{project}}`, `{{date}}`, `{{time}}` (`HHMM`, 24-hour, the sessio
 
 Rules:
 - **Do not pre-create module or concept pages.** They are born when the code or knowledge appears; empty placeholders go stale before they are ever born.
-- Seed `decisions\{{date}}-llm-wiki-memory-system.md` from `templates\decisions-llm-wiki-memory-system.md` (why the wiki exists and its boundaries, adapted to this repo; keep its heading, `Status:`, `Date:` and `Summary:` lines). It gets no table row and no index row: ADRs are listed by the folder.
-- Seed `log\{{date}}-{{time}}-bootstrap.md` from `templates\log-bootstrap.md`, the one `bootstrap` entry (its header date is the file name's date); do not create `log.md`; seed `overview.md` §Current focus from the repo's reality (what the project is, the current state as far as the README/`.plans` say). If the owner has `.plans\product\` documents, **link** to them; never copy them.
+- Seed `decisions\{{date}}-llm-wiki-memory-system.md` from `templates\decisions-llm-wiki-memory-system.md` (why the wiki exists and its boundaries, adapted to this repo; keep its heading, `Status:`, `Date:` and `Summary:` lines).
+  It gets no table row and no index row: ADRs are listed by the folder.
+- Seed `log\{{date}}-{{time}}-bootstrap.md` from `templates\log-bootstrap.md`, the one `bootstrap` entry (its header date is the file name's date); do not create `log.md`.
+- Seed `overview.md` §Current focus from the repo's reality (what the project is, the current state as far as the README/`.plans` say). If the owner has `.plans\product\` documents, **link** to them; never copy them.
 - Write `.claude/wiki.conf` from `templates\wiki.conf` with the answers. It is committed with the repo (shared with the team); it contains no secrets.
 - If the plugin's hooks are not yet active in this session, say that they switch on from the **next session start** (`/hooks` or a restart); the Stop nudge starts at the next turn after that.
 

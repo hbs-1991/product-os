@@ -15,10 +15,13 @@ The rules live in `<wiki_dir>/conventions.md` (this skill executes them, it does
 - Find the wiki: read `.claude/wiki.conf` (`wiki_dir`, default `docs/wiki`). **HALT** if neither the config nor the directory exists: the wiki is not set up; offer `wiki-init`.
 - Read `<wiki_dir>/conventions.md` (§1 boundaries, §4 Ingest, the Memory contract) and `<wiki_dir>/index.md`.
 - **Which layout the wiki uses is decided by its own `conventions.md`, never by this skill.**
-  - Conventions with the 1.3.0 rules (a new wiki, or one converted to them): a log entry is a new file `log/<YYYY-MM-DD>-<HHMM>-<slug>.md` and an ADR is a new file `decisions/<YYYY-MM-DD>-<slug>.md`, with no table, no index row and no number. Steps 3, 6 and 7 below describe this layout.
-  - Conventions that define other rules (every wiki scaffolded by product-os up to 1.2.0 keeps a single `log.md`, numbered ADRs and an ADR table; a project may define its own, for example a frozen archive beside `log/`): follow those rules exactly, and do not convert the wiki. `wiki-lint` suggests the conversion to the owner.
+  - Conventions with the 1.3.0 rules (a new wiki, or one converted to them): a log entry is a new file `log/<YYYY-MM-DD>-<HHMM>-<slug>.md` and an ADR is a new file `decisions/<YYYY-MM-DD>-<slug>.md`, with no table, no index row and no number.
+    Steps 3, 6 and 7 below describe this layout.
+  - Conventions that define other rules (every wiki scaffolded by product-os up to 1.2.0 keeps a single `log.md`, numbered ADRs and an ADR table; a project may define its own, for example a frozen archive beside `log/`): follow those rules exactly, and do not convert the wiki.
+    `wiki-lint` suggests the conversion to the owner.
 - Work out exactly **what knowledge appeared** and which pages it touches: `git diff` / `git log` since the last ingest (the newest `log/` file whose header type is `ingest`, else the top `ingest` entry of `log.md`), the story that just finished, the conversation.
-- Dates come from the session context, never invented. For a new entry or ADR take the date and time from one `date +%Y-%m-%d-%H%M` call (the session's local clock).
+- Dates come from the session context, never invented.
+  For a new entry or ADR take the date and time from one `date +%Y-%m-%d-%H%M` call (the session's local clock).
 - **Filter first.** If a fact already lives in a source of truth (tracker, design document, `.plans` plan that is still being used for guidance, the code itself, an in-code README), do **not** copy it: add a link or skip it. A planning fact enters the wiki only once it has become true in the code.
 
 ## Step 1: In-code README (if the repo keeps them)
@@ -42,15 +45,19 @@ Create or update `<wiki_dir>/concepts/<concept>.md`; link it from module pages a
 
 ## Step 5: Overview
 
-Update `<wiki_dir>/overview.md` §Current focus (keep within the 300-line budget). The log entry of Step 7 is the record of what shipped; a wiki whose conventions still keep a §Recently shipped list follows them. **Do not copy** statuses; link to the tracker. If a milestone or epic from `plan-milestone` shipped, name it with a link to the PR, not its plan.
+Update `<wiki_dir>/overview.md` §Current focus (keep within the 300-line budget).
+The log entry of Step 7 is the record of what shipped; a wiki whose conventions still keep a §Recently shipped list follows them.
+**Do not copy** statuses; link to the tracker. If a milestone or epic from `plan-milestone` shipped, name it with a link to the PR, not its plan.
 
 ## Step 6: Index
 
-A new module or concept page gets a row in `<wiki_dir>/index.md` (under the right section; one row per page, no prose). ADRs and log entries get no index row.
+A new module or concept page gets a row in `<wiki_dir>/index.md` (under the right section; one row per page, no prose).
+ADRs and log entries get no index row.
 
 ## Step 7: Log
 
-Write a new file `<wiki_dir>/log/<YYYY-MM-DD>-<HHMM>-<slug>.md` (date and time from the session's local clock, slug `[a-z0-9-]+`) whose first line is its only header, `## [YYYY-MM-DD] ingest | <title>`, with the name's date, followed by 1–3 lines (what, which pages, links). Mandatory: it records that the ingest was performed.
+Write a new file `<wiki_dir>/log/<YYYY-MM-DD>-<HHMM>-<slug>.md` (date and time from the session's local clock, slug `[a-z0-9-]+`) whose first line is its only header, `## [YYYY-MM-DD] ingest | <title>`, with the name's date, followed by 1–3 lines (what, which pages, links).
+Mandatory: it records that the ingest was performed.
 Never write into a `log.md` once `log/` exists: that file is a frozen archive.
 
 ## Validation
