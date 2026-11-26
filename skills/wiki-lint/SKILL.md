@@ -18,7 +18,7 @@ Read `.claude/wiki.conf` (HALT with an offer of `wiki-init` if the wiki is not s
 - **Contradictions** between pages (the same thing stated two ways). Tie-break by **current code**, never by recency.
 - **Stale claims**: statements the code or the tracker has moved past. Verify claims that name a file, route or symbol still exist (cheapest check, catches most rot); re-run, not re-read, anything the page says was established by running something.
 - **Perishable words**: "frozen", "final", "closed", "open", counts and states; spot-check them first.
-- **Orphans**: pages with no inbound links and not in `index.md`.
+- **Orphans**: pages with no inbound links and not in `index.md`. Date-slug ADRs and `log/` files are listed by their folders and never get an index row, so they are not orphans for lacking one.
 - **Broken links**: `[[wiki links]]` and relative markdown links to sources of truth.
 - **Missing concepts**: a cross-cutting topic mentioned on two or more pages with no page of its own.
 - **Boundary drift**: the wiki copies status or architecture instead of linking (conventions §1). Includes planning facts from `.plans` that are not yet true in the code.

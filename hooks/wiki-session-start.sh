@@ -45,7 +45,6 @@ H_SHIPPED='## Recently shipped'
 H_ROOT='## Root pages'
 H_MODULES='## Modules'
 H_CONCEPTS='## Concepts'
-H_DECISIONS='## Decisions'
 LOG_ENTRY_MARKER='## ['
 
 FOCUS_BYTES=$(conf_get focus_bytes 2600)

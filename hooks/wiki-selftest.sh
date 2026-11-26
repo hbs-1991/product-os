@@ -232,6 +232,12 @@ grep -qx '## Current focus' "$W/overview.md" || fail "D: the overview template l
 for l in '- \*\*Status:\*\*' '- \*\*Date:\*\* 2026-03-04' '- \*\*Summary:\*\*'; do
     grep -q "^$l" "$W/decisions/2026-03-04-llm-wiki-memory-system.md" || fail "D: the seed ADR lacks \"$l\""
 done
+# No ADR table in a new wiki: index.md section Decisions and decisions/README.md hold no table row.
+awk '/^## /{inside = ($0 == "## Decisions")} inside && /^\|/{found = 1} END{exit !found}' "$W/index.md" \
+    && fail "D: the index template has a table row under ## Decisions"
+grep -q '^|' "$W/decisions/README.md" && fail "D: the decisions README template has a table"
+grep -q 'One file per decision, listed by the folder' "$W/decisions/README.md" \
+    || fail "D: the decisions README template lacks \"One file per decision, listed by the folder\""
 
 export CLAUDE_PROJECT_DIR="$D"
 digest D "$DEFAULT_CAP"
