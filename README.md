@@ -85,10 +85,19 @@ The **wiki** (`docs/wiki`, committed with the code) is the other half: durable k
 
 `hooks/hooks.json` registers two hooks, both **opt-in**: they do nothing until `.claude/wiki.conf` exists in the repo (`wiki-init` writes it).
 
-- **SessionStart** injects a ~6.5 KB digest (current focus, newest shipped, newest log titles, page names). It is a digest because Claude Code inlines hook output only up to ~10 KB and spills the rest to a file no session reads.
+- **SessionStart** injects a ~6.5 KB digest (current focus, page names, the ADR count, newest log titles). It is a digest because Claude Code inlines hook output only up to ~10 KB and spills the rest to a file no session reads.
 - **Stop** nudges (never blocks) when watched code changed but the wiki, or the area's README, did not.
 
 `.claude/wiki.conf` is parsed, never sourced: `wiki_dir`, `lang` (`en`/`ru`), `watch`, `code_ext`, `readme_per_child`, `readme_flat`, and the digest budgets. A repo that already has its own wiki hooks should not add a `wiki.conf`, or both would run. Self-test: `sh hooks/wiki-selftest.sh`.
+
+## 1.3.0: wiki entries as files
+
+Parallel pull requests no longer conflict on the wiki's journal, ADR table or next ADR number.
+
+- A log entry is a new file `<wiki_dir>/log/<YYYY-MM-DD>-<HHMM>-<slug>.md`, and an ADR is a new file `<wiki_dir>/decisions/<YYYY-MM-DD>-<slug>.md` with `Status:`, `Date:` and `Summary:` lines, cited `ADR <YYYY-MM-DD>-<slug>`.
+- `wiki-init` scaffolds new wikis this way: no `log.md`, no ADR table in `decisions/README.md` or `index.md`, no §Recently shipped in `overview.md`, and `log_titles=8` in `wiki.conf`.
+- `wiki-ingest` follows the wiki's own `conventions.md`: a wiki made by 1.2.0 or earlier keeps its single `log.md` and numbered ADRs, and `wiki-lint` suggests the conversion instead of doing it.
+- The SessionStart digest reads `log/` newest first and tops up from `log.md`, shows §Recently shipped only where it still exists, counts ADRs as files, and keeps its byte cap including the truncation marker.
 
 ## Requirements
 
