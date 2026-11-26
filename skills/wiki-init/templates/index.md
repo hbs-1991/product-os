@@ -7,14 +7,12 @@
 | Page | Purpose |
 |---|---|
 | [overview](overview.md) | "Where the project stands now": current focus, links to sources of truth |
-| [log](log.md) | Chronological, append-only journal of wiki events (newest first) |
+| [log](log/) | Chronological, append-only journal of wiki events: one file per entry, `log/<YYYY-MM-DD>-<HHMM>-<slug>.md`, sorted by name (newest last) |
 | [conventions](conventions.md) | Wiki schema and maintenance rules (ingest / query / lint) and the memory contract |
 
 ## Decisions
 
-| # | Decision |
-|---|---|
-| [0001](decisions/0001-llm-wiki-memory-system.md) | The wiki as the project's memory: boundaries and mechanism |
+One file per decision, listed by the folder [decisions/](decisions/README.md); an ADR gets no row here.
 
 ## Modules
 

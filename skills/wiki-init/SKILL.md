@@ -10,7 +10,7 @@ It records the **plan ↔ reality delta and dev knowledge** that is not visible 
 This skill creates the structure and switches the hooks on. Keeping it alive is `wiki-ingest`; keeping it healthy is `wiki-lint`.
 
 ```text
-SessionStart hook   injects a ~6.5 KB DIGEST (current focus, newest shipped, newest log titles, page names)
+SessionStart hook   injects a ~6.5 KB DIGEST (current focus, page names, ADR count, newest log titles)
 Stop hook           nudges when code changed but the wiki / the area README did not (never blocks)
 wiki-ingest         the agent integrates new knowledge: module page, ADR, concept, overview, index, log
 wiki-lint           periodic health check: contradictions, stale claims, orphans, boundary drift
@@ -21,7 +21,8 @@ The hooks ship with the plugin and are **opt-in per repository**: they do nothin
 ## 0. Preconditions (read, don't ask)
 
 - A git repository (the Stop hook reads `git status`). If there is none, say so and stop.
-- Does `<wiki_dir>` (default `docs/wiki`) already exist? If yes: **do not scaffold over it**. Offer: write only `.claude/wiki.conf` to adopt it (check that the headings the digest needs exist: `## Current focus`, `## Recently shipped` in overview.md; `## Root pages`, `## Modules`, `## Concepts`, `## Decisions` in index.md; log entries start with `## [`) and run `wiki-lint` afterwards.
+- Does `<wiki_dir>` (default `docs/wiki`) already exist? If yes: **do not scaffold over it**. Offer: write only `.claude/wiki.conf` to adopt it (check that the headings the digest needs exist: `## Current focus` in overview.md; `## Root pages`, `## Modules`, `## Concepts`, `## Decisions` in index.md; log entries, in `log/` files or in an older `log.md`, start with `## [`; a `## Recently shipped` list in overview.md is optional and shown when present) and run `wiki-lint` afterwards.
+  An adopted wiki keeps the rules of its own `conventions.md`: the hooks read both the `log/` layout and an older single `log.md`, and `wiki-lint` suggests the conversion rather than doing it.
 - Does the repo already have its own wiki hooks in `.claude/settings.json` (a project-level `SessionStart`/`Stop` wiki script)? Then installing `wiki.conf` would double-inject. Tell the owner and stop unless they choose to retire the project hooks.
 - Read `CLAUDE.md`, `.claude/rules/*`, the top-level layout and the language of existing docs, to fill the config sensibly.
 
@@ -35,14 +36,15 @@ The hooks ship with the plugin and are **opt-in per repository**: they do nothin
 
 ## 2. Scaffold
 
-Create, from this skill's `templates\` folder (substituting `{{project}}`, `{{date}}` = today's real date, `{{wiki_dir}}`, and the sources of truth from question 5):
+Create, from this skill's `templates\` folder (substituting `{{project}}`, `{{date}}` = today's real date, `{{time}}` = the current local time as `HHMM`, `{{wiki_dir}}`, and the sources of truth from question 5):
 
 ```text
 <wiki_dir>\index.md            page catalog; sections: Root pages · Decisions · Modules · Concepts
-<wiki_dir>\overview.md         "where the project stands": ## Current focus · ## Recently shipped
-<wiki_dir>\log.md              append-only journal, newest entry at the TOP
+<wiki_dir>\overview.md         "where the project stands": ## Current focus
+<wiki_dir>\log\               the journal: one file per entry, <YYYY-MM-DD>-<HHMM>-<slug>.md (no log.md)
 <wiki_dir>\conventions.md      schema + maintenance rules + the Memory contract (M1-M7)
-<wiki_dir>\decisions\_template.md   and decisions\README.md (the ADR table)
+<wiki_dir>\decisions\_template.md   and decisions\README.md (one file per decision, listed by the folder; no table)
+<wiki_dir>\decisions\<YYYY-MM-DD>-llm-wiki-memory-system.md   the seed ADR
 <wiki_dir>\modules\_template.md
 <wiki_dir>\concepts\README.md
 <repo>\.claude\wiki.conf       hook configuration (parsed by the hooks, never sourced)
@@ -52,20 +54,21 @@ Template map (`templates\` file -> target):
 
 | Template | Target |
 |---|---|
-| `index.md`, `overview.md`, `log.md`, `conventions.md` | `<wiki_dir>\` same name |
+| `index.md`, `overview.md`, `conventions.md` | `<wiki_dir>\` same name |
+| `log-bootstrap.md` | `<wiki_dir>\log\{{date}}-{{time}}-bootstrap.md` |
 | `decisions-_template.md`, `decisions-README.md` | `<wiki_dir>\decisions\_template.md`, `README.md` |
-| `0001-llm-wiki-memory-system.md` | `<wiki_dir>\decisions\0001-llm-wiki-memory-system.md` |
+| `decisions-llm-wiki-memory-system.md` | `<wiki_dir>\decisions\{{date}}-llm-wiki-memory-system.md` |
 | `modules-_template.md` | `<wiki_dir>\modules\_template.md` |
 | `concepts-README.md` | `<wiki_dir>\concepts\README.md` |
 | `wiki.conf` | `<repo>\.claude\wiki.conf` |
 | `claude-md-snippet.md` | shown to the owner, appended to `CLAUDE.md` on a yes |
 
-Placeholders: `{{project}}`, `{{date}}`, `{{wiki_dir}}`, `{{lang}}`, `{{watch}}`, `{{code_ext}}`, `{{readme_per_child}}`, `{{readme_flat}}`, `{{status_source}}`, `{{architecture_source}}`, `{{current_focus}}`. Leave an optional config value empty rather than inventing it.
+Placeholders: `{{project}}`, `{{date}}`, `{{time}}` (`HHMM`, 24-hour, the session's local clock: take `{{date}}` and `{{time}}` from one `date +%Y-%m-%d-%H%M` call), `{{wiki_dir}}`, `{{lang}}`, `{{watch}}`, `{{code_ext}}`, `{{readme_per_child}}`, `{{readme_flat}}`, `{{status_source}}`, `{{architecture_source}}`, `{{current_focus}}`. Leave an optional config value empty rather than inventing it.
 
 Rules:
 - **Do not pre-create module or concept pages.** They are born when the code or knowledge appears; empty placeholders go stale before they are ever born.
-- Seed `decisions\0001-llm-wiki-memory-system.md` from `templates\0001-llm-wiki-memory-system.md` (why the wiki exists and its boundaries, adapted to this repo).
-- Seed `log.md` with one `bootstrap` entry; seed `overview.md` §Current focus from the repo's reality (what the project is, the current state as far as the README/`.plans` say). If the owner has `.plans\product\` documents, **link** to them; never copy them.
+- Seed `decisions\{{date}}-llm-wiki-memory-system.md` from `templates\decisions-llm-wiki-memory-system.md` (why the wiki exists and its boundaries, adapted to this repo; keep its heading, `Status:`, `Date:` and `Summary:` lines). It gets no table row and no index row: ADRs are listed by the folder.
+- Seed `log\{{date}}-{{time}}-bootstrap.md` from `templates\log-bootstrap.md`, the one `bootstrap` entry (its header date is the file name's date); do not create `log.md`; seed `overview.md` §Current focus from the repo's reality (what the project is, the current state as far as the README/`.plans` say). If the owner has `.plans\product\` documents, **link** to them; never copy them.
 - Write `.claude/wiki.conf` from `templates\wiki.conf` with the answers. It is committed with the repo (shared with the team); it contains no secrets.
 - If the plugin's hooks are not yet active in this session, say that they switch on from the **next session start** (`/hooks` or a restart); the Stop nudge starts at the next turn after that.
 

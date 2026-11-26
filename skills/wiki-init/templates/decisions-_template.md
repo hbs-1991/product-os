@@ -1,7 +1,8 @@
-# NNNN — <short title of the decision>
+# YYYY-MM-DD-<slug> — <short title of the decision>
 
-- **Status:** proposed | accepted | superseded by [[decisions/NNNN-...]]
+- **Status:** proposed | accepted | superseded by [[decisions/<YYYY-MM-DD>-<slug>]]
 - **Date:** YYYY-MM-DD
+- **Summary:** <one paragraph: what was decided and why, the abstract a reader greps for>
 - **Related:** [[modules/...]] · [[concepts/...]] · design/architecture section (link)
 
 ## Context
